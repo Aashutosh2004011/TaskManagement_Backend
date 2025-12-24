@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -53,7 +53,7 @@ export const createApp = (): Application => {
   }
 
   // Health check endpoint
-  app.get('/health', (_req, res) => {
+  app.get('/health', (_req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Server is healthy',

@@ -16,7 +16,7 @@ const router = Router();
  * @access  Public
  */
 router.post('/', validateRequest(createTaskSchema, 'body'), (req, res, next) =>
-  taskController.createTask(req, res, next)
+  taskController.createTask(req as any, res, next)
 );
 
 /**
@@ -24,8 +24,8 @@ router.post('/', validateRequest(createTaskSchema, 'body'), (req, res, next) =>
  * @desc    List all tasks with filters (status, category, priority)
  * @access  Public
  */
-router.get('/', validateRequest(taskQuerySchema, 'query'), (req: any, res, next) =>
-  taskController.getTasks(req, res, next)
+router.get('/', validateRequest(taskQuerySchema, 'query'), (req, res, next) =>
+  taskController.getTasks(req as any, res, next)
 );
 
 /**
@@ -42,8 +42,8 @@ router.get('/statistics', (req, res, next) =>
  * @desc    Get task details with history
  * @access  Public
  */
-router.get('/:id', validateRequest(uuidSchema, 'params'), (req: any, res, next) =>
-  taskController.getTaskById(req, res, next)
+router.get('/:id', validateRequest(uuidSchema, 'params'), (req, res, next) =>
+  taskController.getTaskById(req as any, res, next)
 );
 
 /**
@@ -55,7 +55,7 @@ router.patch(
   '/:id',
   validateRequest(uuidSchema, 'params'),
   validateRequest(updateTaskSchema, 'body'),
-  (req: any, res, next) => taskController.updateTask(req, res, next)
+  (req, res, next) => taskController.updateTask(req as any, res, next)
 );
 
 /**
@@ -63,8 +63,8 @@ router.patch(
  * @desc    Delete task
  * @access  Public
  */
-router.delete('/:id', validateRequest(uuidSchema, 'params'), (req: any, res, next) =>
-  taskController.deleteTask(req, res, next)
+router.delete('/:id', validateRequest(uuidSchema, 'params'), (req, res, next) =>
+  taskController.deleteTask(req as any, res, next)
 );
 
 export default router;
