@@ -8,6 +8,10 @@ export const validateRequest = (schema: ZodSchema, source: 'body' | 'query' | 'p
   return async (req: Request, _res: Response, next: NextFunction) => {
     try {
       const data = req[source];
+      // Temporary logging to debug date format
+      if (data && data.due_date) {
+        console.log('[DEBUG] Received due_date:', data.due_date, '(type:', typeof data.due_date, ')');
+      }
       const validated = await schema.parseAsync(data);
       req[source] = validated;
       next();

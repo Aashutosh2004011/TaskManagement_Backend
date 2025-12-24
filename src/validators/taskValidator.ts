@@ -34,7 +34,17 @@ export const createTaskSchema = z.object({
     .optional(),
   due_date: z
     .string()
-    .datetime('Invalid date format. Use ISO 8601 format')
+    .refine(
+      (val) => {
+        try {
+          const date = new Date(val);
+          return !isNaN(date.getTime());
+        } catch {
+          return false;
+        }
+      },
+      { message: 'Invalid date format. Use ISO 8601 format' }
+    )
     .optional(),
   category: taskCategorySchema.optional(),
   priority: taskPrioritySchema.optional(),
@@ -64,7 +74,17 @@ export const updateTaskSchema = z.object({
     .optional(),
   due_date: z
     .string()
-    .datetime('Invalid date format. Use ISO 8601 format')
+    .refine(
+      (val) => {
+        try {
+          const date = new Date(val);
+          return !isNaN(date.getTime());
+        } catch {
+          return false;
+        }
+      },
+      { message: 'Invalid date format. Use ISO 8601 format' }
+    )
     .optional(),
   extracted_entities: z.any().optional(),
   suggested_actions: z.array(z.string()).optional(),
